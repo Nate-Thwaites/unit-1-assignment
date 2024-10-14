@@ -10,11 +10,13 @@ public class EnemyScript : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     bool isGrounded;
-    float e = -4f;
+    float r = -7f;
+
+    int health = 10;
 
     int enemyDir;
 
-    float ex, px;
+    
 
     void Start()
     {
@@ -22,60 +24,49 @@ public class EnemyScript : MonoBehaviour
         helper = gameObject.AddComponent<HelperScript>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        enemyDir = 2;
+        enemyDir = 6;
     }
 
 
     void Update()
     {
-        //EnemyMove();
-        EnemyPatrol();
+        EnemyChase1();
+        //EnemyPatrol();
         //EnemyGrounded();
+        //TakeDamage();
+        EnemyDie();
+
     }
 
-    void EnemyMove()
+    void EnemyChase1()
     {
-        helper.FlipObject(true);
+        helper.EnemyChase();
+        
 
-        if (helper.ExtendedRayCollisionCheck(0.5f, 0.4f) == true)
+        
+    }
+
+    void TakeDamage(float damage)
+    {
+        print(damage);
+        health = health - 5;
+
+
+    }
+
+    void EnemyDie()
+    {
+        if (health == 0)
         {
-            isGrounded = true;
+            anim.SetBool("die", true);
+
         }
-        if (helper.ExtendedRayCollisionCheck(-0.5f, 0.4f) == true)
-        {
-            isGrounded = true;
-        }
+    }
+    
+    
 
-        ex = enemy.transform.position.x;
-        px = player.transform.position.x;
-
-        if (isGrounded == true)
-        {
-            print("walk left");
-            rb.velocity = new Vector2(e, 0);
-
-
-
-
-
-            if (helper.ExtendedRayCollisionCheck(-0.5f, 0.4f) == false)
-            {
-                e = e * -1;
-                helper.FlipObject(true);
-            }
-
-            if (helper.ExtendedRayCollisionCheck(0.5f, 0.4f) == false)
-            {
-                e = e * -1;
-                helper.FlipObject(true);
-            }
-
-
-
-        }    }
-
-        void EnemyPatrol()
-        {
+        /*void EnemyPatrol()
+         {
             rb.velocity = new Vector2(enemyDir, 0);
 
 
@@ -87,6 +78,7 @@ public class EnemyScript : MonoBehaviour
                 {
                     enemyDir = -enemyDir;
                     helper.FlipObject(true);
+                    anim.SetBool("move", true);
                 }
             }
 
@@ -98,9 +90,12 @@ public class EnemyScript : MonoBehaviour
                 {
                     enemyDir = -enemyDir;
                     helper.FlipObject(false);
+                    anim.SetBool("move", true);
                 }
+
+                
             }
-        }
+        }*/
 
 
 
@@ -108,4 +103,5 @@ public class EnemyScript : MonoBehaviour
 
 
 
+    
 }

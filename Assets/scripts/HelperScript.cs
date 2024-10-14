@@ -6,11 +6,23 @@ public class HelperScript : MonoBehaviour
 {
 
     public LayerMask groundLayerMask;
+    public LayerMask deathLayerMask;
+    float ex, px;
+    float r = -7f;
+    public GameObject player;
+    public GameObject enemy;
+
+    Rigidbody2D rb;
+
+    bool isGrounded;
 
     void Start()
     {
         // set the mask to be "Ground"
         groundLayerMask = LayerMask.GetMask("Ground");
+        deathLayerMask = LayerMask.GetMask("death");
+        isGrounded = true;
+        rb = GetComponent<Rigidbody2D>();
     }
 
 
@@ -78,7 +90,7 @@ public class HelperScript : MonoBehaviour
 
         if (hit.collider != null)
         {
-            print("Player has collided with Ground layer");
+            //print("Player has collided with Ground layer");
             hitColor = Color.green;
             hitSomething = true;
         }
@@ -88,5 +100,83 @@ public class HelperScript : MonoBehaviour
 
         return hitSomething;
 
+    }
+
+    public bool DeathRayCollisionCheck(float xoffs, float yoffs)
+    {
+
+        float rayLength = 0.5f; // length of raycast
+        bool hitSomething = false;
+
+        // convert x and y offset into a Vector3 
+        Vector3 offset = new Vector3(xoffs, yoffs, 0);
+
+        //cast a ray downward 
+        RaycastHit2D hit;
+
+
+        hit = Physics2D.Raycast(transform.position + offset, -Vector2.up, rayLength, deathLayerMask);
+
+        Color hitColor = Color.red;
+
+
+        if (hit.collider != null)
+        {
+            print("Player has collided with death layer");
+            hitColor = Color.green;
+            hitSomething = true;
+        }
+        // draw a debug ray to show ray position
+        // You need to enable gizmos in the editor to see these
+        Debug.DrawRay(transform.position + offset, -Vector3.up * rayLength, hitColor);
+
+        return hitSomething;
+
+    }
+
+    public bool EnemyChase()
+    {
+
+
+
+        bool chasePlayer = false;
+
+        ex = enemy.transform.position.x;
+        px = player.transform.position.x;
+
+
+        FlipObject (true);
+
+        if (ExtendedRayCollisionCheck(0.5f, 0.4f) && (ExtendedRayCollisionCheck(-0.5f, 0.4f) == true))
+        {
+            isGrounded = true;
+        }
+
+        else
+        {
+            isGrounded = false;
+        }
+
+
+        ex = enemy.transform.position.x;
+        px = player.transform.position.x;
+
+        if (ex > px)
+        {
+            rb.velocity = new Vector2(r, 0);
+        }
+
+        if (ex < px)
+        {
+            r = r * -1;
+            rb.velocity = new Vector2(r, 0);
+        }
+
+
+
+
+
+        chasePlayer = true;
+        return chasePlayer;
     }
 }
