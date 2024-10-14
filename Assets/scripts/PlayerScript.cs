@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class PlayerScript : MonoBehaviour
 {
 
@@ -13,6 +16,8 @@ public class PlayerScript : MonoBehaviour
     bool isJumping;
 
     HelperScript helper;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +38,7 @@ public class PlayerScript : MonoBehaviour
         DoGroundCheck();
         SpriteAttack();
 
-        int yMovement = (int)Input.GetAxisRaw("vertical");
+        int yMovement = (int)Input.GetAxisRaw("Vertical");
         if (yMovement == 1)
         {
             SpriteJump();
@@ -48,11 +53,10 @@ public class PlayerScript : MonoBehaviour
         //moving left
         if (Input.GetKey("left") == true) //detects key pressesd
         {
-
             rb.velocity = new Vector2(-6f, rb.velocity.y); //speed of movement, the minus means left
             anim.SetBool("run", true); //calls animation
             helper.FlipObject(true);
-
+            print("move");
         }
 
         if (Input.GetKey("right") == true)
@@ -73,7 +77,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKeyDown("space") && (isGrounded == true)) //the next peice of code will only execute if both are true
         {
-            
+
             rb.AddForce(new Vector3(0, 6, 0), ForceMode2D.Impulse); //sends him upwards, as it is coordinbates, x y z, it sends the sprite up with a force of 5
         }
     }
@@ -108,9 +112,12 @@ public class PlayerScript : MonoBehaviour
     void SpriteAttack()
     {
 
-        if (Input.GetKeyDown("m"))
+        if (Input.GetKeyDown("m") && (isGrounded == true))
         {
+
+            print("you attacked");
             anim.SetBool("attack", true);
+            //rb.velocity = new Vector2(0,0);
         }
     }
     public void AttackEnd()
