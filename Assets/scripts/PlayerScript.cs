@@ -17,11 +17,13 @@ public class PlayerScript : MonoBehaviour
 
     public LayerMask enemyLayerMask;
 
-    float ex, px;
+    
 
     private int hitRange = 1;
 
     bool isDead;
+
+    bool changeScene;
 
     HelperScript helper;
 
@@ -36,6 +38,7 @@ public class PlayerScript : MonoBehaviour
         isGrounded = true;
         isJumping = false;
         isDead = false;
+        changeScene = false;
     }
 
     // Update is called once per frame
@@ -47,12 +50,12 @@ public class PlayerScript : MonoBehaviour
         DoGroundCheck();
         SpriteAttack();
         PlayerDead();
-        TriggerEnemy();
+        
 
         
 
 
-        int yMovement = (int)Input.GetAxisRaw("Vertical");
+        int yMovement = (int)Input.GetAxisRaw("");
         if (yMovement == 1)
         {
             SpriteJump();
@@ -168,35 +171,38 @@ public class PlayerScript : MonoBehaviour
 
     void PlayerDead()
     {
+        
+
+
 
         if (helper.DeathRayCollisionCheck(0f, 0.48f) == true)
-
         {
+            changeScene = true;
+        }
 
+
+        if (changeScene == true)
+        {
             SceneManager.LoadScene(sceneName: "Death Screen");
             print("dead");
             isDead = true;
-
         }
 
-        if (isDead == true && (Input.GetKey("space")))
+        if (Input.GetKey("space") && (isDead == true))
         {
             SceneManager.LoadScene(sceneName: "Game");
             isDead = false;
         }
+        
+          
 
+        
 
     }    
         
         
         
-    void TriggerEnemy()
-        {
-        if (helper.DeathRayCollisionCheck(1f, 0.9f) == true)
-        {
-
-        }
-    }
+    
                 
 
         

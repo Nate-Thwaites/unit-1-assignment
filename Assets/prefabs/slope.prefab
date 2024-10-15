@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7741571883756185586}
   - component: {fileID: 1532846570408578024}
   - component: {fileID: 805499530370288878}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: slope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,5 +137,5 @@ PolygonCollider2D:
       - {x: 0.047718048, y: -0.08660483}
       - {x: -0.5, y: -0.5}
       - {x: 0.5, y: -0.5}
-      - {x: 0.5, y: 0.5}
+      - {x: 0.5, y: -0.15582973}
   m_UseDelaunayMesh: 0

@@ -7,14 +7,15 @@ public class HelperScript : MonoBehaviour
 
     public LayerMask groundLayerMask;
     public LayerMask deathLayerMask;
-    float ex, px;
     float r = -7f;
     public GameObject player;
     public GameObject enemy;
-
+    Animator anim;
     Rigidbody2D rb;
 
-    bool isGrounded;
+    public bool isGrounded;
+
+    
 
     void Start()
     {
@@ -23,6 +24,9 @@ public class HelperScript : MonoBehaviour
         deathLayerMask = LayerMask.GetMask("death");
         isGrounded = true;
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
+
     }
 
 
@@ -134,7 +138,7 @@ public class HelperScript : MonoBehaviour
 
     }
 
-    public bool EnemyChase()
+   /* public bool EnemyChase()
     {
 
 
@@ -145,7 +149,7 @@ public class HelperScript : MonoBehaviour
         px = player.transform.position.x;
 
 
-        FlipObject (true);
+        
 
         if (ExtendedRayCollisionCheck(0.5f, 0.4f) && (ExtendedRayCollisionCheck(-0.5f, 0.4f) == true))
         {
@@ -164,6 +168,8 @@ public class HelperScript : MonoBehaviour
         if (ex > px)
         {
             rb.velocity = new Vector2(r, 0);
+            anim.SetBool("walk", true);
+            FlipObject(true);
         }
 
         if (ex < px)
@@ -178,5 +184,7 @@ public class HelperScript : MonoBehaviour
 
         chasePlayer = true;
         return chasePlayer;
-    }
+    }*/
+
+    
 }
