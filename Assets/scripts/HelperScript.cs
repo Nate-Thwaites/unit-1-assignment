@@ -7,7 +7,7 @@ public class HelperScript : MonoBehaviour
 
     public LayerMask groundLayerMask;
     public LayerMask deathLayerMask;
-    float r = -7f;
+    public float r = -7f;
     public GameObject player;
     public GameObject enemy;
     Animator anim;

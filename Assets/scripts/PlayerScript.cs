@@ -17,11 +17,13 @@ public class PlayerScript : MonoBehaviour
 
     public LayerMask enemyLayerMask;
 
-    
+    public GameObject triggerArea;
 
     private int hitRange = 1;
 
     bool isDead;
+
+    bool isMoving;
 
     bool changeScene;
 
@@ -39,6 +41,7 @@ public class PlayerScript : MonoBehaviour
         isJumping = false;
         isDead = false;
         changeScene = false;
+        isMoving = false;
     }
 
     // Update is called once per frame
@@ -49,7 +52,7 @@ public class PlayerScript : MonoBehaviour
         SpriteLand();
         DoGroundCheck();
         SpriteAttack();
-        PlayerDead();
+        //PlayerDead();
         
 
         
@@ -73,6 +76,7 @@ public class PlayerScript : MonoBehaviour
             rb.velocity = new Vector2(-6f, rb.velocity.y); //speed of movement, the minus means left
             anim.SetBool("run", true); //calls animation
             helper.FlipObject(true);
+            isMoving = true;
 
         }
 
@@ -82,6 +86,7 @@ public class PlayerScript : MonoBehaviour
             rb.velocity = new Vector2(6f, rb.velocity.y);
             anim.SetBool("run", true);
             helper.FlipObject(false); // x axis doesn't flip
+            isMoving = true;
         }
 
         if (Input.GetKey("left") != true && Input.GetKey("right") != true)
@@ -94,7 +99,6 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKeyDown("space") && (isGrounded == true)) //the next peice of code will only execute if both are true
         {
-
             rb.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse); //sends him upwards, as it is coordinbates, x y z, it sends the sprite up with a force of 4
         }
     }
@@ -133,10 +137,17 @@ public class PlayerScript : MonoBehaviour
         {
             //print("you attacked");
             anim.SetBool("attack", true);
-            //rb.velocity = new Vector2(0,0);
+            rb.velocity = new Vector2(0,0);
         }
 
-       
+        if (Input.GetKeyDown("m") && (isMoving == true))
+        {
+            //print("you attacked");
+            anim.SetBool("attack", true);
+            isMoving = false;
+        }
+
+
     }
 
     public void AttackEnd()
@@ -169,13 +180,27 @@ public class PlayerScript : MonoBehaviour
 
     }
 
-    void PlayerDead()
+    public void PlayerDead()
     {
         
 
 
 
-        if (helper.DeathRayCollisionCheck(0f, 0.48f) == true)
+        if (triggerArea.GetComponent<DeathTrigger>().playerDead == true)
+        {
+            SceneManager.LoadScene(sceneName: "Death Screen");
+            print("dead");
+            isDead = true;
+        }
+
+        if (isDead == true && (Input.GetKey("space")))
+        {
+            SceneManager.LoadScene(sceneName: "Game");
+            isDead = false;
+        }
+
+
+        /*if (helper.DeathRayCollisionCheck(0f, 0.48f) == true)
         {
             changeScene = true;
         }
@@ -188,15 +213,19 @@ public class PlayerScript : MonoBehaviour
             isDead = true;
         }
 
+        
+        
+
+
         if (Input.GetKey("space") && (isDead == true))
         {
             SceneManager.LoadScene(sceneName: "Game");
             isDead = false;
-        }
-        
-          
+        }*/
 
-        
+
+
+
 
     }    
         

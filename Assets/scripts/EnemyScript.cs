@@ -170,6 +170,11 @@ public class EnemyScript : MonoBehaviour
 
     void EnemyAttack()
     {
+        if( triggerArea == null )
+        {
+            print("trigger area gameobject is null");
+        }
+
         if (triggerArea.GetComponent<EnemyAttackTrigger>().enemyInsideTriggerArea == false)
         {
             return;
