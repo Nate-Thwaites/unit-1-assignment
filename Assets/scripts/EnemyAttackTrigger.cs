@@ -4,19 +4,14 @@ using UnityEngine;
 
 public class EnemyAttackTrigger : MonoBehaviour
 {
-    public bool enemyInsideTriggerArea;
+    Animator anim;
+    
 
     private void Start()
     {
-        enemyInsideTriggerArea = false;
+        
+        //anim = GetComponent<Animator>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            enemyInsideTriggerArea = true;
-            print("true");
-        }
-    }
+    
 }

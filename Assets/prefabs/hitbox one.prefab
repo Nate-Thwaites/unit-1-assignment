@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &2079177138367005596
+--- !u!1001 &1728824421001865144
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,19 +10,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.521435
+      value: -10.915138
       objectReference: {fileID: 0}
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.8285158
+      value: -3.0155892
       objectReference: {fileID: 0}
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.89547974
       objectReference: {fileID: 0}
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.57439137
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalRotation.x
@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.8185808
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -46,12 +46,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3440027825207167589, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 109.886
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 4779388585958263386, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
       propertyPath: m_Name
-      value: mainlevbuild_3 (8) Variant
+      value: mainlevbuild_3 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 5337002337850759051, guid: 1f82a33407ff96d429433e4e1baadbdd, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: ed5e0fd5014cc2a47ba2787545b1d0fc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

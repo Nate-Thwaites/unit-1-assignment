@@ -11,21 +11,26 @@ public class PlayerScript : MonoBehaviour
 
     Rigidbody2D rb;
     Animator anim;
+    SpriteRenderer sr;
 
     bool isGrounded;
     bool isJumping;
 
+    public float playerHealth = 10;
+
     public LayerMask enemyLayerMask;
+    public LayerMask playerLayerMask;
 
     public GameObject triggerArea;
 
     private int hitRange = 1;
+    
 
-    bool isDead;
+    //bool isDead;
 
     bool isMoving;
 
-    bool changeScene;
+    //bool changeScene;
 
     HelperScript helper;
 
@@ -36,11 +41,12 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         helper = gameObject.AddComponent<HelperScript>();
+        sr = gameObject.AddComponent<SpriteRenderer>();
 
         isGrounded = true;
         isJumping = false;
-        isDead = false;
-        changeScene = false;
+        //isDead = false;
+        //changeScene = false;
         isMoving = false;
     }
 
@@ -53,6 +59,8 @@ public class PlayerScript : MonoBehaviour
         DoGroundCheck();
         SpriteAttack();
         //PlayerDead();
+        //PlayerDamage();
+        
         
 
         
@@ -64,10 +72,30 @@ public class PlayerScript : MonoBehaviour
             SpriteJump();
         }
     }
-
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   
     void MoveSprite()
     {
+
+
+        if (anim.GetBool("attack") == true)
+        {
+            rb.velocity = Vector2.zero;
+
+            if (anim.GetBool("attack") == false)
+            {
+                return;
+            }
+                
+
+
+        }
+
+
+
         anim.SetBool("run", false);
+
 
 
         //moving left
@@ -95,11 +123,12 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     void SpriteJump()
     {
         if (Input.GetKeyDown("space") && (isGrounded == true)) //the next peice of code will only execute if both are true
         {
-            rb.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse); //sends him upwards, as it is coordinbates, x y z, it sends the sprite up with a force of 4
+            rb.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse); //sends him upwards, as it is coordinbates, x y z, it sends the sprite up with a force of 5
         }
     }
 
@@ -130,6 +159,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     void SpriteAttack()
     {
 
@@ -137,7 +167,7 @@ public class PlayerScript : MonoBehaviour
         {
             //print("you attacked");
             anim.SetBool("attack", true);
-            rb.velocity = new Vector2(0,0);
+            
         }
 
         if (Input.GetKeyDown("m") && (isMoving == true))
@@ -178,9 +208,11 @@ public class PlayerScript : MonoBehaviour
 
 
 
+
+
     }
 
-    public void PlayerDead()
+    /*public void PlayerDead()
     {
         
 
@@ -197,7 +229,7 @@ public class PlayerScript : MonoBehaviour
         {
             SceneManager.LoadScene(sceneName: "Game");
             isDead = false;
-        }
+        }*/
 
 
         /*if (helper.DeathRayCollisionCheck(0f, 0.48f) == true)
@@ -223,11 +255,27 @@ public class PlayerScript : MonoBehaviour
             isDead = false;
         }*/
 
+    
+
+    void PlayerDamage(int damage)
+    {
+        print(damage);
+        playerHealth = playerHealth - 4;
+        print(playerHealth);
+
+        if (playerHealth <= 0 )
+        {
+            anim.SetBool("die", true);
+            sr = null;
+            print("dead by enemy" );
+        }
+
+    }
 
 
 
 
-    }    
+    
         
         
         
