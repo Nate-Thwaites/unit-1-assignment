@@ -81,47 +81,52 @@ public class PlayerScript : MonoBehaviour
 
         if (anim.GetBool("attack") == true)
         {
+            print("movesprite says attack is true");
             rb.velocity = Vector2.zero;
+            return;
+           
 
-            if (anim.GetBool("attack") == false)
+        }
+
+        if (anim.GetBool("attack") == false)
+        {
+
+            anim.SetBool("run", false);
+
+
+
+            //moving left
+            if (Input.GetKey("left") == true) //detects key pressesd
             {
-                return;
+                rb.velocity = new Vector2(-6f, rb.velocity.y); //speed of movement, the minus means left
+                anim.SetBool("run", true); //calls animation
+                helper.FlipObject(true);
+                isMoving = true;
+
             }
-                
 
+            if (Input.GetKey("right") == true)
+            {
 
-        }
+                rb.velocity = new Vector2(6f, rb.velocity.y);
+                anim.SetBool("run", true);
+                helper.FlipObject(false); // x axis doesn't flip
+                isMoving = true;
+            }
 
-
-
-        anim.SetBool("run", false);
-
-
-
-        //moving left
-        if (Input.GetKey("left") == true) //detects key pressesd
-        {
-            rb.velocity = new Vector2(-6f, rb.velocity.y); //speed of movement, the minus means left
-            anim.SetBool("run", true); //calls animation
-            helper.FlipObject(true);
-            isMoving = true;
-
-        }
-
-        if (Input.GetKey("right") == true)
-        {
-
-            rb.velocity = new Vector2(6f, rb.velocity.y);
-            anim.SetBool("run", true);
-            helper.FlipObject(false); // x axis doesn't flip
-            isMoving = true;
+          
         }
 
         if (Input.GetKey("left") != true && Input.GetKey("right") != true)
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
+            anim.SetBool("run", false);
+
         }
+
     }
+
+        
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     void SpriteJump()
@@ -145,14 +150,14 @@ public class PlayerScript : MonoBehaviour
         isGrounded = false;
         anim.SetBool("jump", true);
 
-        if (helper.ExtendedRayCollisionCheck(0.5f, 0.48f) == true)
+        if (helper.ExtendedRayCollisionCheck(0.48f, 0.48f) == true)
 
         {
             isGrounded = true;
             anim.SetBool("jump", false);
         }
 
-        if (helper.ExtendedRayCollisionCheck(-0.5f, 0.48f) == true)
+        if (helper.ExtendedRayCollisionCheck(-0.48f, 0.48f) == true)
         {
             isGrounded = true;
             anim.SetBool("jump", false);
@@ -172,8 +177,9 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown("m") && (isMoving == true))
         {
-            //print("you attacked");
+            print("you attacked");
             anim.SetBool("attack", true);
+            anim.SetBool("run", false);
             isMoving = false;
         }
 
@@ -183,6 +189,7 @@ public class PlayerScript : MonoBehaviour
     public void AttackEnd()
     {
         anim.SetBool("attack", false);
+        anim.SetBool("run", false);
 
         RaycastHit2D hit;
         Vector3 direction = Vector2.right;
@@ -211,6 +218,8 @@ public class PlayerScript : MonoBehaviour
 
 
     }
+
+
 
     /*public void PlayerDead()
     {

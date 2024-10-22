@@ -76,6 +76,8 @@ public class EnemyScript : MonoBehaviour
     {
         //check for player entering trigger area
 
+        
+
         if (playerInsideTriggerArea == false)
         {
             return;
@@ -87,54 +89,56 @@ public class EnemyScript : MonoBehaviour
         px = player.transform.position.x;
 
 
-       
-        
-        if (helper.ExtendedRayCollisionCheck(0.5f, 0.4f) && (helper.ExtendedRayCollisionCheck(-0.5f, 0.4f) == true))
+        if (playerInsideTriggerArea == true)
         {
-            isGrounded = true;
+
+            if (helper.ExtendedRayCollisionCheck(0.5f, 0.4f) && (helper.ExtendedRayCollisionCheck(-0.5f, 0.4f) == true))
+            {
+                isGrounded = true;
+            }
+
+            else
+            {
+                isGrounded = false;
+            }
+
+
+
+
+            if (ex > px)
+            {
+
+                rb.velocity = new Vector2(r, 0);
+                anim.SetBool("move", true);
+                helper.FlipObject(false);
+            }
+
+            if (ex < px)
+            {
+                anim.SetBool("move", true);
+                rb.velocity = new Vector2(-r, 0);
+                helper.FlipObject(true);
+
+            }
         }
-
-        else
-        {
-            isGrounded = false;
-        }
-
-
-        
-
-        if (ex < px)
-        {
-                
-            rb.velocity = new Vector2(r, 0);
-            anim.SetBool("move", true);
-            helper.FlipObject(false);
-        }
-
-        if (ex > px)
-        {
-            anim.SetBool("move", true);
-            rb.velocity = new Vector2(-r, 0);
-            helper.FlipObject(true);
-              
-        }
-        
     }
 
     void EnemyPatrol()
     {
 
 
-        /*if (anim.GetBool("attack") == true)
+        if (anim.GetBool("attack") == true)
         {
             rb.velocity = Vector2.zero;
             return;
+        }
 
+        if (anim.GetBool("attack") == false)
+        {
+            anim.SetBool("move", true);
+        }
 
-
-
-        }*/
-
-
+            
         if (triggerArea.GetComponent<EnemyTriggerScript>().playerInsideTriggerArea == true)
         {
             return;
@@ -207,7 +211,7 @@ public class EnemyScript : MonoBehaviour
 
     }
 
-    public void EnemyAttackEnd()
+    /*public void EnemyAttackEnd()
     {
         anim.SetBool("attack", false);
         RaycastHit2D hit;
@@ -236,7 +240,7 @@ public class EnemyScript : MonoBehaviour
 
 
 
-    }
+    }*/
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -273,7 +277,10 @@ public class EnemyScript : MonoBehaviour
 
                 }
 
-            }
+                if ( isAttacking==false)
+                {
+                anim.SetBool("move",true);
+                }
 
         }
 
