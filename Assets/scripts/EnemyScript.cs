@@ -261,32 +261,32 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-        private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
         {
-            if ( collision.gameObject.tag == "Player")
+            if (isAttacking == true)
             {
-                if( isAttacking==true)
-                {
-                    //do damage to player
-                    print("do damage");
-                    playerHealth = playerHealth - 4;
-                    print(playerHealth);
-                    isAttacking=false;
+                //do damage to player
+                print("do damage");
+                playerHealth = playerHealth - 4;
+                print(playerHealth);
+                isAttacking = false;
 
 
 
-                }
+            }
 
-                if ( isAttacking==false)
-                {
-                anim.SetBool("move",true);
-                }
+            if (isAttacking == false)
+            {
+                anim.SetBool("move", true);
+            }
 
         }
 
-        
 
 
+    }
 
 
     

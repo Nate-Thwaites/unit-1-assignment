@@ -6,40 +6,44 @@ using UnityEngine.SceneManagement;
 public class DeathTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
-    public bool playerDead;
+    
     public GameObject triggerArea;
+    Vector2 startPos;
+
 
     private void Start()
     {
-        playerDead = false;
+        
+        startPos = transform.position;
 
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Death")
         {
 
 
-           
-            print("dead");
-            playerDead = true;
+            Die();
+
         }
 
-        if (playerDead == true)
+        void Die()
         {
-            SceneManager.LoadScene("Death Screen");
+            Respawn();
+        }
+
+        void Respawn()
+        {
+            transform.position = startPos;
+        }
+           
             
 
-            if (Input.GetKeyDown("space"))
-            {
-                SceneManager.LoadScene("Game");
-                playerDead = false;
-                print("revive");
-            }   
+            
                 
             
-        }
+        
 
 
         

@@ -11,8 +11,7 @@ public class PlayerScript : MonoBehaviour
 
     Rigidbody2D rb;
     Animator anim;
-    SpriteRenderer sr;
-
+    
     bool isGrounded;
     bool isJumping;
 
@@ -41,7 +40,7 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         helper = gameObject.AddComponent<HelperScript>();
-        sr = gameObject.AddComponent<SpriteRenderer>();
+        
 
         isGrounded = true;
         isJumping = false;
@@ -275,7 +274,7 @@ public class PlayerScript : MonoBehaviour
         if (playerHealth <= 0 )
         {
             anim.SetBool("die", true);
-            sr = null;
+            
             print("dead by enemy" );
         }
 
